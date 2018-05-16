@@ -70,7 +70,8 @@ function nextPlayer() {
   document.querySelector('.player-' + activePlayer + '-panel').classList.toggle('active');
   // Hide dice for next player
   hideDices();
-  prevDice = undefined;
+  prevDice1 = undefined;
+  prevDice2 = undefined;
 }
 
 function resetValues() {
