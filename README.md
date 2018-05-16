@@ -1,4 +1,4 @@
-# Pig Dice Game
+# Pig Dice Game (Customed)
 
 GAME RULES:
 
