@@ -56,8 +56,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     // Check if player won the game
     if (scores[activePlayer] >= 100) {
       document.getElementById('name-'+activePlayer).textContent = 'WINNER!';
-      document.getElementById('dice1').style.display = 'none';
-      document.getElementById('dice2').style.display = 'none';
+      hideDices();
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
       document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
       gamePlaying = false;
@@ -82,8 +81,7 @@ function nextPlayer() {
   // Change class to activate based on the deactive player
   document.querySelector('.player-' + activePlayer + '-panel').classList.toggle('active');
   // Hide dice for next player
-  document.getElementById('dice1').style.display = 'none';
-  document.getElementById('dice2').style.display = 'none';
+  hideDices();
   prevDice = undefined;
 }
 
@@ -92,8 +90,7 @@ function resetValues() {
   roundScore = 0;
   activePlayer = 0;
 
-  document.getElementById('dice1').style.display = 'none';
-  document.getElementById('dice2').style.display = 'none';
+  hideDices();
   document.getElementById('score-0').textContent = '0';
   document.getElementById('score-1').textContent = '0';
   document.getElementById('current-0').textContent = '0';
@@ -109,5 +106,7 @@ function resetValues() {
   gamePlaying = true;
 }
 
-
-//
+function hideDices() {
+  document.getElementById('dice1').style.display = 'none';
+  document.getElementById('dice2').style.display = 'none';
+}
