@@ -6,10 +6,11 @@ GAME RULES:
 - BUT, if the player rolls a 1, all his ROUND score gets lost. After that, it's the next player's turn
 - The player can choose to 'Hold', which means that his ROUND score gets added to his GLBAL score. After that, it's the next player's turn
 - The first player to reach 100 points on GLOBAL score wins the game
+- A player looses his ENTIRE score whe he rolls two 6 in a row.
 
 */
 
-var scores, roundScore, activePlayer, gamePlaying;
+var scores, roundScore, activePlayer, gamePlaying, prevDice;
 
 gamePlaying = true;
 
@@ -25,9 +26,16 @@ document.querySelector('.btn-roll').addEventListener('click', function() {
     diceDOM.src = '../img/dice-' + dice + '.png';
     // Update round score IF the rolled number was not one
     if (dice !== 1) {
-      // Add score
-      roundScore += dice;
-      document.querySelector('#current-' + activePlayer).textContent = roundScore;
+      if (dice === 6 && prevDice === 6) {
+        scores[activePlayer] = 0;
+        document.getElementById('score-'+activePlayer).textContent = 0;
+        nextPlayer();
+      }else {
+        // Add score
+        roundScore += dice;
+        document.querySelector('#current-' + activePlayer).textContent = roundScore;
+        prevDice = dice;
+      }
     }else {
       nextPlayer();
     }
@@ -42,7 +50,7 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
     // Update the UI
     document.getElementById('score-'+activePlayer).textContent = scores[activePlayer];
     // Check if player won the game
-    if (scores[activePlayer] >= 10) {
+    if (scores[activePlayer] >= 100) {
       document.getElementById('name-'+activePlayer).textContent = 'WINNER!';
       document.querySelector('.dice').style.display = 'none';
       document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
@@ -70,6 +78,7 @@ function nextPlayer() {
   document.querySelector('.player-' + activePlayer + '-panel').classList.toggle('active');
   // Hide dice for next player
   document.querySelector('.dice').style.display = 'none';
+  prevDice = undefined;
 }
 
 function resetValues() {
